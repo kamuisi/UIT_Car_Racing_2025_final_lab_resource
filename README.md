@@ -50,5 +50,6 @@ ninja -j$(nproc)
 
 ## Reference
 - [I2C library usage](https://www.kernel.org/doc/Documentation/i2c/dev-interface)
+- [Motor Driver usage](https://www.dropbox.com/scl/fi/o0i4gk3qeexkkjcknd5zf/MSDxx-Manual-v30.pdf?rlkey=8whwse5u8xn4unvxd2ato40sv&e=2&dl=0)
 - [Torch-TensorRT](https://github.com/pytorch/TensorRT)
 

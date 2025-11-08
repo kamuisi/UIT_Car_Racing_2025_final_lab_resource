@@ -19,6 +19,7 @@ class Motor
         void SendInitCommand();
         void SendCommand(const char*);
         void SetMode(uint8_t);
+        void AutoTunePid();
         void SetSpeedRad(float Rad);
         void SetSpeedCms(float Cms);
         void SetSpeedPositionRad(float Position, float Rad);

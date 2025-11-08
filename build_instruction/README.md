@@ -9,7 +9,7 @@
 > - You can use the bazelisk to install Bazel easily.
 > - You can find the LibTorch (PyTorch) builds for Jetson devices from [NVIDIA’s official forum](https://forums.developer.nvidia.com/t/pytorch-for-jetson/72048).  
 > - The Torch-TensortRT versions i referred are: 
->   - [Jetson Nano](https://github.com/pytorch/TensorRT/releases/tag/v1.0.0) 
+>   - [Jetson Nano](https://github.com/pytorch/TensorRT/releases/tag/v1.0.0). 
 >   - [Jetson Xavier NX](https://github.com/pytorch/TensorRT/releases/tag/v1.1.0).
 
 **3.** Install build tools:

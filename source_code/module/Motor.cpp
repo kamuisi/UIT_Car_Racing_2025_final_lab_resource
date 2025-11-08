@@ -24,17 +24,22 @@ bool Motor::Init()
     return true;
 }
 
-void Motor::SendInitCommand()
+static void SaveAndResetDriver()
 {
-    SendCommand("N1 O D1 \n");
-    SendCommand("N1 $008=0 \n");
-    // SendCommand("N1 $002=334 \n"); //do encoder
-    SendCommand("N1 O U C r \n");
-    SetMode(1);
     SendCommand("N1 $101=1 \n");
     usleep(200000); // cho reset
     SendCommand("N1 O K0 \n");
     SendCommand("N1 O U C r \n");
+}
+
+void Motor::SendInitCommand()
+{
+    SendCommand("N1 O D1 \n");
+    SendCommand("N1 $008=0 \n");
+    SendCommand("N1 $002=330 \n");
+    SendCommand("N1 O U C r \n");
+    SetMode(1);
+    SaveAndResetDriver();
 }
 
 void Motor::SendCommand(const char *cmd)
@@ -49,6 +54,14 @@ void Motor::SetMode(uint8_t mode)
         return;
     std::string cmd = "N1 O M" + std::to_string(mode + 2) + " \n";
     SendCommand(cmd.c_str());
+}
+
+void Motor::AutoTunePid()
+{
+    SendCommand("N1 O T \n");
+    usleep(5000000);
+    SetMode(1);
+    SaveAndResetDriver();
 }
 
 void Motor::SetSpeedRad(float Rad)
