@@ -86,20 +86,23 @@ void MainThread(Camera &_cam, Model &_model)
             case (int)'w': 
                 new_speed = 10;
                 break;
-            case  (int)'s':
+            case (int)'s':
                 new_speed = -10;
                 break;
-            case  (int)'a':
+            case (int)'a':
                 new_angle = 20;
                 break;
-            case  (int)'d':
+            case (int)'d':
                 new_angle = -20;
                 break;
             case (int)'q':
                 std::cout << "Catched break signal" << std::endl << std::flush;
                 run_flag = false;
                 break;
-            case  (int)'c':
+            case (int)'t':
+                AutoTunePid();
+                break;
+            case (int)'c':
                 new_angle = 0;
                 new_speed = 0;
                 break;
