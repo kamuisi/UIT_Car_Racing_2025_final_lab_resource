@@ -67,40 +67,53 @@ void OLEDThread(SH1106 &_oled)
     }
 }
 
-void MainThread(Camera &_cam, Model &_model)
+void MainThread(Camera &_cam, Model &_model, Motor &_motor)
 {
     cv::Mat frame;
     float new_speed = 0;
     int8_t new_angle = 0;
+    bool save = false;
+    int i = 0;
     while (run_flag)
     {
         _cam.GetFrame(frame);
-        auto pred = _model.Predict(frame);
+        // auto pred = _model.Predict(frame);
         
-        _model.DrawOverlay(frame, pred);
+        // _model.DrawOverlay(frame, pred);
         cv::imshow("View", frame);
+
+        if(save)
+        {
+            cv::imwrite(std::to_string(i) + ".jpg", frame);
+            i++;
+        }
+        new_angle = new_angle * 0.8;
+        new_speed = new_speed * 0.8;
 
         int key = cv::waitKey(1);
         switch (key)
         {
             case (int)'w': 
-                new_speed = 10;
+                new_speed = 60;
                 break;
             case (int)'s':
-                new_speed = -10;
+                new_speed = -60;
                 break;
             case (int)'a':
-                new_angle = 20;
+                new_angle = 30;
                 break;
             case (int)'d':
-                new_angle = -20;
+                new_angle = -30;
                 break;
             case (int)'q':
                 std::cout << "Catched break signal" << std::endl << std::flush;
                 run_flag = false;
                 break;
+            case (int)'f':
+                save = !save;
+                break;
             case (int)'t':
-                AutoTunePid();
+                _motor.AutoTunePid();
                 break;
             case (int)'c':
                 new_angle = 0;
@@ -109,6 +122,7 @@ void MainThread(Camera &_cam, Model &_model)
             default: 
                 break;
         }
+
 
         {
             std::lock_guard<std::mutex> lock(mtx_speed);
@@ -136,14 +150,14 @@ int main()
     _motor.Init();
     _oled.Init();
     _cam.Init();
-    _model.LoadModel();
+    // _model.LoadModel();
 
     _servo.SetPWMFreq(50);
 
     std::thread servo_thread(ServoThread, std::ref(_servo));
     std::thread motor_thread(MotorThread, std::ref(_motor));
     std::thread oled_thread(OLEDThread, std::ref(_oled));
-    std::thread main_thread(MainThread, std::ref(_cam), std::ref(_model));
+    std::thread main_thread(MainThread, std::ref(_cam), std::ref(_model), std::ref(_motor));
 
     main_thread.join();
     servo_thread.join();

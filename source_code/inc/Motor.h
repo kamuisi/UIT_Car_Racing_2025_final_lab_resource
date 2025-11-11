@@ -16,8 +16,9 @@ class Motor
         Motor(const char* device_port = "/dev/ttyTHS1") : _device_port(device_port), _device(-1){}
         ~Motor();
         bool Init();
-        void SendInitCommand();
         void SendCommand(const char*);
+        void SendInitCommand();
+        void SaveAndResetDriver();
         void SetMode(uint8_t);
         void AutoTunePid();
         void SetSpeedRad(float Rad);

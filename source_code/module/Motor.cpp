@@ -24,7 +24,13 @@ bool Motor::Init()
     return true;
 }
 
-static void SaveAndResetDriver()
+void Motor::SendCommand(const char *cmd)
+{
+    // std::cout << cmd << std::flush;
+    write(_device, cmd, strlen(cmd));
+}
+
+void Motor::SaveAndResetDriver()
 {
     SendCommand("N1 $101=1 \n");
     usleep(200000); // cho reset
@@ -40,12 +46,6 @@ void Motor::SendInitCommand()
     SendCommand("N1 O U C r \n");
     SetMode(1);
     SaveAndResetDriver();
-}
-
-void Motor::SendCommand(const char *cmd)
-{
-    // std::cout << cmd << std::flush;
-    write(_device, cmd, strlen(cmd));
 }
 
 void Motor::SetMode(uint8_t mode)
