@@ -13,14 +13,16 @@ class Model
     private:
         torch::jit::script::Module _module;
         std::string _model_path;
-        torch::Tensor gpu_tensor;
-        cv::Mat labels;
+        torch::Tensor _gpu_tensor;
+        cv::Mat _lut_b;
+        cv::Mat _lut_g;
+        cv::Mat _lut_r;
     public:
         Model(const std::string &model_path) : _model_path(model_path) {}
         ~Model();
         void LoadModel();
         torch::Tensor Predict(const cv::Mat &input_image);
-        void DrawOverlay(cv::Mat &image, const torch::Tensor &pred);
+        void DrawOverlay(cv::Mat &image, const cv::Mat &mask, int x_tp, int y_tp);
 };
 
 

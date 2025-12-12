@@ -74,6 +74,7 @@ void Motor::SetSpeedCms(float Cms)
 {
     std::string cmd = "N1 v" + std::to_string((Cms * 2.0) / 6.5) + " \n"; // Cm/s / chu vi = số vòng / s
     SendCommand(cmd.c_str());                                             // (số vòng / s) * 2pi = rad / s
+    SendCommand("N1 O G1 \n");
 }                                                                         // Tổng quát (Cm/s * 2pi) / (D * pi) = (Cm/s * 2) / D
 
 void Motor::SetSpeedPositionRad(float Position, float Rad)

@@ -20,7 +20,6 @@ extern "C"
 #define PRE_SCALER 0xFE
 #define MAXANGLE (int16_t)60
 
-
 class Servo 
 {
     private:

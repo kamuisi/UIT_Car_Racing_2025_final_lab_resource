@@ -13,7 +13,7 @@ class Motor
         int _device;
         const char* _device_port;
     public:
-        Motor(const char* device_port = "/dev/ttyTHS1") : _device_port(device_port), _device(-1){}
+        Motor(const char* device_port = "/dev/ttyTHS1") : _device(-1), _device_port(device_port){}
         ~Motor();
         bool Init();
         void SendCommand(const char*);

@@ -7,7 +7,8 @@
 
 int main()
 {
-	Motor _motor;
+    // Motor _motor; //nano
+    Motor _motor("/dev/ttyTHS0"); //xaiver
 	_motor.Init();
 	bool flag = 0;
 	int i = -65;

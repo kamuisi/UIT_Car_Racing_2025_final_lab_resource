@@ -3,7 +3,7 @@ import torch_tensorrt
 from fast_scnn import Fast_SCNN
 
 
-model = Fast_SCNN(num_classes=5)
+model = Fast_SCNN(num_classes=11)
 model.load_state_dict(torch.load("../model/fast_scnn_model.pth", map_location=torch.device('cuda')))
 model.eval().cuda()
 
